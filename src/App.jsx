@@ -1,25 +1,34 @@
-import React from 'react'
-import TodoItem from './components/TodoItem'
-import Navbar from './components/Navbar'
-
+import Header from './components/Header'
+import TodoList from './components/TodoList'
+import { useState } from "react";
 
 const App = () => {
-  const quantitys = [1,2,3]
-  const attributs = {
+const[inputValue, setInputValue] = useState('')
+
+const handleInput = (event) => {
+    setInputValue(event.target.value)
+}
+
+  const todos = [{
     id: 1,
-    text: 'Some quick example text to build on the card title and make up the bulk of the cards content.',
-    img: 'https://i.pinimg.com/originals/03/e0/9e/03e09e0a900811a8452647899212d900.png',
+    text: 'Number ONE',
     isActiv: false,
-  }
+  },
+  {
+    id: 2,
+    text: 'Number TWO.',
+    isActiv: false,
+  },
+  {
+    id: 3,
+    text: 'Number THRY',
+    isActiv: false,
+  }]
 
   return (
-    <div className='container'>
-      <Navbar/>
-      <div className="container">
-        <div className="row mt-5 d-flex justify-content-around">
-        {quantitys.map(quantity=><TodoItem todos={attributs}/>)}
-        </div>
-      </div>
+    <div className='container mt-5'>
+      <Header onClick={handleInput} value={inputValue}/>
+      <TodoList data={todos}/>
     </div>
   );
 }

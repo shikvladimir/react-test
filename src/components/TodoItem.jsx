@@ -1,19 +1,11 @@
-import React from 'react'
-
 const TodoItem = (props) => {
   return (
-    <div className="card" style={{ width: "18rem" }}>
-      <img className="photo"
-        src={props.todos.img}
-        alt="photo hastag" />
-      <p className="card-text">
-        {props.todos.text}
-      </p>
-      <div className="form-check">
-        <input className="form-check-input" type="checkbox" value="{props.todos.isActiv}"/>
-        <label>
-          Запомнить
-        </label>
+    <div className="d-flex align-items-center justify-content-around  m-4  bg-secondary text-white">
+            <input className="form-check-input" style={{height: "35px", width: "35px"}} type="checkbox" value="" />
+      <p>{props.todo.text}</p>
+      <div className="d-flex flex-column m-3">
+      <button type="button" className="btn btn-info m-3">X</button>
+      <button type="button" className="btn btn-light m-3">Delete</button>
       </div>
     </div>
   )
