@@ -3,11 +3,12 @@ import TodoList from './components/TodoList'
 import { useState } from "react";
 
 const App = () => {
-const[inputValue, setInputValue] = useState('')
+  const [inputValue, setInputValue] = useState('')
 
-const handleInput = (event) => {
+  const handleInput = (event) => {
     setInputValue(event.target.value)
-}
+    console.log(event.target.value)
+  }
 
   const todos = [{
     id: 1,
@@ -26,9 +27,11 @@ const handleInput = (event) => {
   }]
 
   return (
-    <div className='container mt-5'>
-      <Header onClick={handleInput} value={inputValue}/>
-      <TodoList data={todos}/>
+    <div className='container py-5'>
+      <Header
+        onClick={handleInput} value={inputValue}
+      />
+      <TodoList data={todos} />
     </div>
   );
 }

@@ -1,12 +1,33 @@
+import { useState } from "react";
+
 const TodoItem = (props) => {
+
+  const [isComplited, setComlited] = useState(false)
+
+  const handleClickDeleteX = () => {
+    console.log('ClickDeleteX!');
+  }
+
+  const toggleCheckbox = () => {
+    setComlited(!isComplited)
+  }
+
   return (
-    <div className="d-flex align-items-center justify-content-around  m-4  bg-secondary text-white">
-            <input className="form-check-input" style={{height: "35px", width: "35px"}} type="checkbox" value="" />
+    <div className={isComplited ? "d-flex justify-content-center gap-5 p-4 m-5 bg-danger text-white" : "d-flex justify-content-center gap-5 p-4 m-5 bg-secondary text-white"}>
+      <input
+        className="form-check-input w-5 p-3"
+        type="checkbox"
+        checked={isComplited}
+        onChange={toggleCheckbox}
+      />
       <p>{props.todo.text}</p>
-      <div className="d-flex flex-column m-3">
-      <button type="button" className="btn btn-info m-3">X</button>
-      <button type="button" className="btn btn-light m-3">Delete</button>
-      </div>
+      <button
+        type="button"
+        className="btn btn-info"
+        onClick={handleClickDeleteX}>
+        X
+      </button>
+      <button type="button" className="btn btn-light">Delete</button>
     </div>
   )
 }

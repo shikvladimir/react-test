@@ -1,19 +1,34 @@
 const Header = (props) => {
 
-    const handleClick = () => {
-        console.log('Click!');
+    const handleClickAdd = () => {
+        console.log('ClickAdd!');
+    }
+
+    const handleClickDeleteAll = () => {
+        console.log('ClickDeleteAll!');
     }
 
     return (
-        <nav className="container d-flex">
-            <button type="button" className="btn btn-info">Delete All</button>
+        <nav className="d-flex">
+            <button
+                type="button"
+                className="btn btn-info"
+                onClick={handleClickDeleteAll}>
+                Delete All
+            </button>
             <input
                 type="text"
                 className="form-control"
                 placeholder="Enter todo ..."
                 onChange={event => props.onClick(event)}
-                value={props.value} />
-            <button className="btn btn-info" onClick={handleClick}>Add</button>
+                value={props.value}
+            />
+            <button
+                type="button"
+                className="btn btn-info"
+                onClick={handleClickAdd}>
+                Add
+            </button>
         </nav>
     )
 }
