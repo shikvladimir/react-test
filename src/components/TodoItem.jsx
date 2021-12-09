@@ -1,9 +1,17 @@
-
-const TodoItem = ({ todoData, isComplited, toggleCheckbox, handleClickDeleteX }) => {
-
+const TodoItem = ({
+  todoData,
+  isComplited,
+  toggleCheckbox,
+  handleClickDeleteX,
+}) => {
   return (
-
-    <div className={isComplited ? "d-flex justify-content-center gap-5 p-4 m-5 bg-danger text-white" : "d-flex justify-content-center gap-5 p-4 m-5 bg-secondary text-white"}>
+    <div
+      className={
+        isComplited
+          ? "d-flex justify-content-center gap-5 p-4 m-5 bg-danger text-white"
+          : "d-flex justify-content-center gap-5 p-4 m-5 bg-secondary text-white"
+      }
+    >
       <input
         className="form-check-input w-5 p-3"
         type="checkbox"
@@ -18,11 +26,11 @@ const TodoItem = ({ todoData, isComplited, toggleCheckbox, handleClickDeleteX })
       >
         X
       </button>
-      <button type="button" className="btn btn-light">Delete</button>
+      <button type="button" className="btn btn-light">
+        Delete
+      </button>
     </div>
+  );
+};
 
-
-  )
-}
-
-export default TodoItem
+export default TodoItem;
