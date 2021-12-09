@@ -1,39 +1,56 @@
-import Header from './components/Header'
-import TodoList from './components/TodoList'
+import Header from './components/Header';
+import TodoList from './components/TodoList';
 import { useState } from "react";
 
-const App = () => {
-  const [inputValue, setInputValue] = useState('')
 
-  const handleInput = (event) => {
-    setInputValue(event.target.value)
-    console.log(event.target.value)
+const App = () => {
+
+  const [isComplited, setComlited] = useState(false)
+
+  const toggleCheckbox = (event) => {
+    setComlited(!isComplited)
   }
 
-  const todos = [{
-    id: 1,
-    text: 'Number ONE',
-    isActiv: false,
-  },
-  {
-    id: 2,
-    text: 'Number TWO.',
-    isActiv: false,
-  },
-  {
-    id: 3,
-    text: 'Number THRY',
-    isActiv: false,
-  }]
+  const [todoData, setTododata] = useState([]);
+
+  const [formData, setFormData] = useState({
+    text: '',
+  })
+
+  const handleFormData = event => {
+    const field = event.target.getAttribute('name')
+    const newFormData = { ...formData }
+    newFormData[field] = event.target.value
+
+    setFormData(newFormData)
+  }
+
+  const handleClickAdd = (event) => {
+    event.preventDefault()
+    setTododata([...todoData, formData])
+  }
+
+  const handleClickDeleteAll = () => {
+    console.log('ClickDeleteAll!');
+  }
+
+  const handleClickDeleteX = (id) => {
+    setTododata(todoData.filter(todoData => todoData.id !== id))
+  }
 
   return (
     <div className='container py-5'>
-      <Header
-        onClick={handleInput} value={inputValue}
+      <Header formData={formData} handleFormData={handleFormData}
+        handleClickAdd={handleClickAdd}
+        handleClickDeleteAll={handleClickDeleteAll}
       />
-      <TodoList data={todos} />
+      <TodoList todoData={todoData}
+        toggleCheckbox={toggleCheckbox}
+        isComplited={isComplited}
+        handleClickDeleteX={handleClickDeleteX}
+      />
     </div>
   );
-}
 
+}
 export default App

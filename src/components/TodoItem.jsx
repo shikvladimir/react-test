@@ -1,18 +1,8 @@
-import { useState } from "react";
 
-const TodoItem = (props) => {
-
-  const [isComplited, setComlited] = useState(false)
-
-  const handleClickDeleteX = () => {
-    console.log('ClickDeleteX!');
-  }
-
-  const toggleCheckbox = () => {
-    setComlited(!isComplited)
-  }
+const TodoItem = ({ todoData, isComplited, toggleCheckbox, handleClickDeleteX }) => {
 
   return (
+
     <div className={isComplited ? "d-flex justify-content-center gap-5 p-4 m-5 bg-danger text-white" : "d-flex justify-content-center gap-5 p-4 m-5 bg-secondary text-white"}>
       <input
         className="form-check-input w-5 p-3"
@@ -20,15 +10,18 @@ const TodoItem = (props) => {
         checked={isComplited}
         onChange={toggleCheckbox}
       />
-      <p>{props.todo.text}</p>
+      <p>{todoData.text}</p>
       <button
         type="button"
         className="btn btn-info"
-        onClick={handleClickDeleteX}>
+        onClick={() => handleClickDeleteX(todoData.id)}
+      >
         X
       </button>
       <button type="button" className="btn btn-light">Delete</button>
     </div>
+
+
   )
 }
 

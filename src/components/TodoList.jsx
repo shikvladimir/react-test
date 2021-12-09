@@ -1,9 +1,15 @@
 import TodoItem from "./TodoItem"
 
-const TodoList = (props) => {
+const TodoList = ({ todoData, isComplited, toggleCheckbox, handleClickDeleteX}) => {
     return (
         <div>
-            {props.data.map(todo => <TodoItem todo={todo} />)}
+            {todoData.map(todoData => (
+                <TodoItem key={todoData.id} todoData={todoData}
+                    toggleCheckbox={toggleCheckbox}
+                    isComplited={isComplited}
+                    onClick={handleClickDeleteX}
+                />
+            ))}
         </div>
     )
 }
