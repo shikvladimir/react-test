@@ -7,14 +7,9 @@ const App = () => {
 
   const [isComplited, setComlited] = useState(false)
 
-  // const toggleCheckbox = (event) => {
-  //   setComlited(!isComplited)
-  // }
-
   const toggleCheckbox = (id) => {
-    const todoData = todoData.find(todoData => todoData.id === id)
-    setComlited({...todoData,isComplited: !todoData.isComplited})
-    setTododata(todoData.map(todoData => todoData.id === id ? checked: todoData))
+    // const todoData = todoData.find(todoData => todoData.id === id)
+    setComlited(todoData.find(todoData => todoData.id === id ? !todoData.isComplited: !isComplited))
     }
 
   const [todoData, setTododata] = useState([]);
