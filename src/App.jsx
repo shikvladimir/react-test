@@ -7,14 +7,22 @@ const App = () => {
 
   const [isComplited, setComlited] = useState(false)
 
-  const toggleCheckbox = (event) => {
-    setComlited(!isComplited)
-  }
+  // const toggleCheckbox = (event) => {
+  //   setComlited(!isComplited)
+  // }
+
+  const toggleCheckbox = (id) => {
+    const todoData = todoData.find(todoData => todoData.id === id)
+    setComlited({...todoData,isComplited: !todoData.isComplited})
+    setTododata(todoData.map(todoData => todoData.id === id ? checked: todoData))
+    }
 
   const [todoData, setTododata] = useState([]);
 
   const [formData, setFormData] = useState({
     text: '',
+    data: new Date().toLocaleTimeString(),
+    checked: false 
   })
 
   const handleFormData = event => {
@@ -31,11 +39,11 @@ const App = () => {
   }
 
   const handleClickDeleteAll = () => {
-    console.log('ClickDeleteAll!');
+    setTododata([])
   }
 
   const handleClickDeleteX = (id) => {
-    setTododata(todoData.filter(todoData => todoData.id !== id))
+    setTododata(todoData.filter((todoData) => todoData.id !== id))
   }
 
   return (

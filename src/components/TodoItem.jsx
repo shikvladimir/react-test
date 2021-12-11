@@ -18,7 +18,7 @@ const TodoItem = ({ todoData, isComplited, toggleCheckbox, handleClickDeleteX })
       >
         X
       </button>
-      <button type="button" className="btn btn-light">Delete</button>
+      <p>{todoData.data}</p>
     </div>
 
 

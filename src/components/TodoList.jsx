@@ -1,6 +1,7 @@
 import TodoItem from "./TodoItem"
 
 const TodoList = ({ todoData, isComplited, toggleCheckbox, handleClickDeleteX}) => {
+
     return (
         <div>
             {todoData.map(todoData => (
