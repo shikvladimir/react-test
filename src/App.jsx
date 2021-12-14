@@ -1,55 +1,102 @@
 import Header from './components/Header';
 import TodoList from './components/TodoList';
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const App = () => {
 
-  const [isComplited, setComlited] = useState(false)
+  const shopAPI = axios.create({
+    baseURL: 'https://61b71df4c95dd70017d412a1.mockapi.io/shop',
+  })
 
-  const toggleCheckbox = (id) => {
-    // const todoData = todoData.find(todoData => todoData.id === id)
-    setComlited(todoData.find(todoData => todoData.id === id ? !todoData.isComplited: !isComplited))
-    }
+  const [isCompleted, setComleted] = useState(false)
 
   const [todoData, setTododata] = useState([]);
 
-  const [formData, setFormData] = useState({
+  useEffect(() => {
+    const fetchTodoData = async () => {
+      try {
+        const { data } = await shopAPI.get('/');
+        setTododata(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchTodoData();
+  }, []);
+
+  const toggleCheckbox = async id => {
+    const todoDat = todoData.find(todoDat => todoDat.id === id)
+    const { data } = await shopAPI.put(`/${id}`, { ...todoDat, isCompleted: !todoDat.isCompleted })
+    setTododata(todoData.map(todoDat => todoDat.id === id ? data : todoDat))
+  }
+
+  const [input, setInput] = useState({
     text: '',
-    data: new Date().toLocaleTimeString(),
-    checked: false 
   })
 
-  const handleFormData = event => {
-    const field = event.target.getAttribute('name')
-    const newFormData = { ...formData }
-    newFormData[field] = event.target.value
-
-    setFormData(newFormData)
+  const handleInput =  (event) => {
+    try{
+      const newValue = event.target.value
+      const newInput = {...input}
+      setInput(newInput)
+      console.log(newValue);
+    }catch(error) {
+      console.error(error);
+    }
   }
 
-  const handleClickAdd = (event) => {
-    event.preventDefault()
-    setTododata([...todoData, formData])
+
+  const handleClickAdd = async () => {
+    try {
+      const todo = {
+        text: '',
+        data: new Date().toLocaleTimeString(),
+      }
+      const response = await shopAPI.post('/', todo);
+      console.log(todo)
+
+      setTododata([...todoData, response.data])
+      // setInput({
+      //   text: '',
+      // })
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  const handleClickDeleteAll = () => {
-    setTododata([])
+  const handleClickDeleteAll = async () => {
+    try {
+      // await shopAPI.delete()
+      setTododata([])
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  const handleClickDeleteX = (id) => {
-    setTododata(todoData.filter((todoData) => todoData.id !== id))
+  const handleClickDeleteX = async id => {
+    try {
+      await shopAPI.delete(`/${id}`) 
+      setTododata(todoData.filter((todoDat) => todoDat.id !== id))
+    } catch (error) {
+      console.error(error);
+    }
   }
+
+
 
   return (
     <div className='container py-5'>
-      <Header formData={formData} handleFormData={handleFormData}
+      <Header
         handleClickAdd={handleClickAdd}
         handleClickDeleteAll={handleClickDeleteAll}
+        handleInput={handleInput}
+        input={input}
       />
-      <TodoList todoData={todoData}
+      <TodoList
+        todoData={todoData}
         toggleCheckbox={toggleCheckbox}
-        isComplited={isComplited}
+        isComplited={isCompleted}
         handleClickDeleteX={handleClickDeleteX}
       />
     </div>

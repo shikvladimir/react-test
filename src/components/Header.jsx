@@ -1,11 +1,11 @@
-const Header = ({ formData, handleFormData, handleClickAdd, handleClickDeleteAll}) => {
+const Header = ({ handleClickAdd, handleClickDeleteAll, handleInput, input }) => {
 
     return (
-        <form className="d-flex" onSubmit={event => handleClickAdd(event)}>
+        <div className="d-flex" onSubmit={event => handleClickAdd(event)}>
             <button
                 type="button"
                 className="btn btn-info"
-            onClick={event => handleClickDeleteAll(event)}
+                onClick={event => handleClickDeleteAll(event)}
             >
                 Delete All
             </button>
@@ -14,16 +14,17 @@ const Header = ({ formData, handleFormData, handleClickAdd, handleClickDeleteAll
                 className="form-control"
                 placeholder="Enter todo ..."
                 name='text'
-                onChange={(event) => handleFormData(event)}
-                value={formData.value}
+                onChange={(event) => handleInput(event)}
+                // value={input.text}
             />
             <button
                 type="submit"
                 className="btn btn-info"
+                onClick={event => handleClickAdd(event)}
             >
                 Add
             </button>
-        </form>
+        </div>
     )
 }
 
