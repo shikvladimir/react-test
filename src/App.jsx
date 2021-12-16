@@ -31,16 +31,16 @@ const App = () => {
     setTododata(todoData.map(todoDat => todoDat.id === id ? data : todoDat))
   }
 
-  const [input, setInput] = useState({
-    text: '',
-  })
+  const [input, setInput] = useState([
+    // text: '',
+  ])
 
   const handleInput =  (event) => {
     try{
       const newValue = event.target.value
-      const newInput = {...input}
-      setInput(newInput)
-      console.log(newValue);
+      const newInput = [...input, newValue]
+      setInput(newValue)
+      console.log(newInput);
     }catch(error) {
       console.error(error);
     }
@@ -50,11 +50,14 @@ const App = () => {
   const handleClickAdd = async () => {
     try {
       const todo = {
-        text: '',
+        text: input,
         data: new Date().toLocaleTimeString(),
-      }
+      } 
+
       const response = await shopAPI.post('/', todo);
+
       console.log(todo)
+      
 
       setTododata([...todoData, response.data])
       // setInput({
